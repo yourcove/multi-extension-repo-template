@@ -1,8 +1,7 @@
 # Cove Multi-Extension Template
 
 Use this template when one repository owns multiple related Cove extensions. On
-GitHub, mark this repository as a template repository and create new extension
-sets with the **Use this template** button.
+GitHub, create new extension sets with the **Use this template** button.
 
 After creating a repository from the template, replace the example extension IDs,
 namespaces, manifest fields, catalog entries, and workflow matrix values with
