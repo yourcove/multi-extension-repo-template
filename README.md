@@ -76,12 +76,3 @@ Each extension has its own tag prefix:
 - `example-scraper/v0.1.0`
 
 The CI workflow only packages the extension that matches the pushed tag.
-<<<<<<< HEAD
-=======
-
-## Scrapers
-
-`extensions/ExampleScraper` is a compiled `IScraperProvider` example for
-scrapers that need C# logic. For script-free XPath scrapers, see the pure YAML
-example in `scraper-examples/pure-yaml/ExampleVideo.yml`.
->>>>>>> 2acd43cd9505a0ef5fd6a1b31af661020c5f4bd5
