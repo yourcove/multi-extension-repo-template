@@ -1,46 +1,39 @@
 using Cove.Core.DTOs;
 using Cove.Plugins;
+using Cove.Sdk;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExampleScraper;
 
-public sealed class ExampleScraperExtension : IScraperProvider
+public sealed class ExampleScraperExtension : CoveExtensionBase, IScraperProvider
 {
-    public string Id => "com.example.scraper";
-    public string Name => "Example Scraper";
-    public string Version => "0.1.0";
-    public string? Description => "A minimal compiled scraper extension template.";
-    public string? Author => "Example Author";
-    public string? Url => "https://github.com/example/cove-extensions";
-    public string? IconUrl => null;
-    public IReadOnlyList<string> Categories => [ExtensionCategories.Scraper, ExtensionCategories.Metadata, ExtensionCategories.Integration];
-    public string? MinCoveVersion => "1.0.0";
+    // Identity & metadata live in extension.json (the single source of truth); CoveExtensionBase surfaces them.
 
-    public void ConfigureServices(IServiceCollection services, ExtensionContext context)
+    public override void ConfigureServices(IServiceCollection services, ExtensionContext context)
     {
     }
 
     public IReadOnlyList<ScraperDescriptor> GetScrapers() =>
     [
         new(
-            "com.example.scraper.scene",
-            "Example scene scraper",
-            ScraperEntity.Scene,
+            "com.example.scraper.video",
+            "Example video scraper",
+            ScraperEntity.Video,
             ScraperCapabilities.ByUrl | ScraperCapabilities.ByName,
             ["example.com/videos/", "media.example.com/watch/"])
     ];
 
-    public Task<ScrapedSceneDto?> ScrapeSceneAsync(ScraperRequest<SceneScrapeInput> request, CancellationToken ct)
+    public Task<ScrapedVideoDto?> ScrapeVideoAsync(ScraperRequest<VideoScrapeInput> request, CancellationToken ct)
     {
         var sourceUrl = request.Input.Url ?? request.Input.Urls.FirstOrDefault();
         if (!TryCreateSupportedUri(sourceUrl, out var uri))
-            return Task.FromResult<ScrapedSceneDto?>(null);
+            return Task.FromResult<ScrapedVideoDto?>(null);
 
         var title = string.IsNullOrWhiteSpace(request.Input.Title)
-            ? "Example scene"
+            ? "Example video"
             : request.Input.Title.Trim();
 
-        return Task.FromResult<ScrapedSceneDto?>(new ScrapedSceneDto
+        return Task.FromResult<ScrapedVideoDto?>(new ScrapedVideoDto
         {
             Title = title,
             Code = request.Input.Code ?? Path.GetFileName(uri.AbsolutePath),
@@ -52,16 +45,16 @@ public sealed class ExampleScraperExtension : IScraperProvider
         });
     }
 
-    public Task<IReadOnlyList<ScrapedSceneDto>> SearchScenesAsync(ScraperRequest<string> request, CancellationToken ct)
+    public Task<IReadOnlyList<ScrapedVideoDto>> SearchVideosAsync(ScraperRequest<string> request, CancellationToken ct)
     {
         var query = request.Input?.Trim();
         if (string.IsNullOrWhiteSpace(query))
-            return Task.FromResult<IReadOnlyList<ScrapedSceneDto>>([]);
+            return Task.FromResult<IReadOnlyList<ScrapedVideoDto>>([]);
 
         var slug = Uri.EscapeDataString(query.ToLowerInvariant().Replace(' ', '-'));
-        IReadOnlyList<ScrapedSceneDto> results =
+        IReadOnlyList<ScrapedVideoDto> results =
         [
-            new ScrapedSceneDto
+            new ScrapedVideoDto
             {
                 Title = query,
                 Urls = [$"https://example.com/videos/{slug}"],

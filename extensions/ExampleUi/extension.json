@@ -5,8 +5,11 @@
   "description": "A minimal UI extension template.",
   "author": "Example Author",
   "url": "https://github.com/example/cove-extensions",
-  "categories": ["ui", "tools"],
-  "minCoveVersion": "1.0.0",
+  "categories": [
+    "ui",
+    "tools"
+  ],
+  "minCoveVersion": "0.7.1",
   "entryDll": "ExampleUi.dll",
   "dependencies": {}
 }

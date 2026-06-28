@@ -1,21 +1,16 @@
 using Cove.Plugins;
+using Cove.Sdk;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExampleUi;
 
-public sealed class ExampleUiExtension : IExtension
+public sealed class ExampleUiExtension : CoveExtensionBase
 {
-    public string Id => "com.example.ui";
-    public string Name => "Example UI Extension";
-    public string Version => "0.1.0";
-    public string? Description => "A minimal UI extension template.";
-    public string? Author => "Example Author";
-    public string? Url => "https://github.com/example/cove-extensions";
-    public string? IconUrl => null;
-    public IReadOnlyList<string> Categories => [ExtensionCategories.UI, ExtensionCategories.Tools];
-    public string? MinCoveVersion => "1.0.0";
+    // Identity & metadata live in extension.json (the single source of truth); CoveExtensionBase surfaces them.
+    // CoveExtensionBase already implements IUIExtension; override GetUIManifest() to contribute UI pages,
+    // settings tabs, or settings panels.
 
-    public void ConfigureServices(IServiceCollection services, ExtensionContext context)
+    public override void ConfigureServices(IServiceCollection services, ExtensionContext context)
     {
     }
 }

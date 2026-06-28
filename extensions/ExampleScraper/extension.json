@@ -5,8 +5,12 @@
   "description": "A minimal compiled scraper extension template.",
   "author": "Example Author",
   "url": "https://github.com/example/cove-extensions",
-  "categories": ["scraper", "metadata", "integration"],
-  "minCoveVersion": "1.0.0",
+  "categories": [
+    "scraper",
+    "metadata",
+    "integration"
+  ],
+  "minCoveVersion": "0.7.1",
   "entryDll": "ExampleScraper.dll",
   "dependencies": {},
   "permissions": {

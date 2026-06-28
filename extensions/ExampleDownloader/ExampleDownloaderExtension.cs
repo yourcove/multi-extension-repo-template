@@ -1,21 +1,14 @@
 using Cove.Plugins;
+using Cove.Sdk;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExampleDownloader;
 
-public sealed class ExampleDownloaderExtension : IDownloaderProvider
+public sealed class ExampleDownloaderExtension : CoveExtensionBase, IDownloaderProvider
 {
-    public string Id => "com.example.downloader";
-    public string Name => "Example Downloader";
-    public string Version => "0.1.0";
-    public string? Description => "A minimal downloader extension template.";
-    public string? Author => "Example Author";
-    public string? Url => "https://github.com/example/cove-extensions";
-    public string? IconUrl => null;
-    public IReadOnlyList<string> Categories => [ExtensionCategories.Downloader, ExtensionCategories.Metadata, ExtensionCategories.Integration];
-    public string? MinCoveVersion => "1.0.0";
+    // Identity & metadata live in extension.json (the single source of truth); CoveExtensionBase surfaces them.
 
-    public void ConfigureServices(IServiceCollection services, ExtensionContext context)
+    public override void ConfigureServices(IServiceCollection services, ExtensionContext context)
     {
     }
 
@@ -24,7 +17,7 @@ public sealed class ExampleDownloaderExtension : IDownloaderProvider
         new(
             "com.example.downloader.file",
             "Example downloader",
-            DownloaderEntity.Scene,
+            DownloaderEntity.Video,
             ["https://example.com/*"],
             DownloaderCapabilities.InlineMetadata)
     ];

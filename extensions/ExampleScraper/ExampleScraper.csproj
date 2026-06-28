@@ -1,39 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <None Include="extension.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
-  </ItemGroup>
+  <!-- Cove host contracts (Cove.Sdk + Cove.Core) are referenced centrally and compile-only by
+       ..\..\Directory.Build.targets. Metadata lives in extension.json (copied centrally by
+       ..\..\Directory.Build.props). Add only genuinely needed PackageReferences here. -->
 
-  <ItemGroup Condition="'$(UseLocalCovePlugins)' == 'false'">
-    <PackageReference Include="Cove.Plugins" Version="$(CovePluginsVersion)" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(UseLocalCoveCore)' == 'false'">
-    <PackageReference Include="Cove.Core" Version="$(CoveCoreVersion)" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(UseLocalCovePlugins)' == 'true'">
-    <ProjectReference Include="$(MSBuildThisFileDirectory)..\..\..\cove\src\Cove.Plugins\Cove.Plugins.csproj" Condition="Exists('$(MSBuildThisFileDirectory)..\..\..\cove\src\Cove.Plugins\Cove.Plugins.csproj')">
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)..\..\..\..\src\Cove.Plugins\Cove.Plugins.csproj" Condition="Exists('$(MSBuildThisFileDirectory)..\..\..\..\src\Cove.Plugins\Cove.Plugins.csproj')">
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </ProjectReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(UseLocalCoveCore)' == 'true'">
-    <ProjectReference Include="$(MSBuildThisFileDirectory)..\..\..\cove\src\Cove.Core\Cove.Core.csproj" Condition="Exists('$(MSBuildThisFileDirectory)..\..\..\cove\src\Cove.Core\Cove.Core.csproj')">
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)..\..\..\..\src\Cove.Core\Cove.Core.csproj" Condition="Exists('$(MSBuildThisFileDirectory)..\..\..\..\src\Cove.Core\Cove.Core.csproj')">
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
